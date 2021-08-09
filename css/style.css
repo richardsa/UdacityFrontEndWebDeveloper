@@ -1,1 +1,4 @@
+@import url('header.css');
+@import url('footer.css');
 body {margin:0;}
+.main {width:100%; max-width:1280px;margin: 25px auto;}

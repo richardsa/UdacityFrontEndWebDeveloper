@@ -1,0 +1,8 @@
+.footer {
+  grid-area:ft;
+  background-color:#0096FF;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
