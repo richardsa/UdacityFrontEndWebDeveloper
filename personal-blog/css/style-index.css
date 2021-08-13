@@ -3,9 +3,9 @@
       grid-template-columns: 1fr;
       grid-template-rows: 50px 1fr 50px;
       grid-template-areas:
-      "hd hd hd hd hd hd hd hd"
-      "main main main main main main main main"
-      "ft ft ft ft ft ft ft ft";
+      "hd"
+      "main"
+      "ft";
 }
 
 .main ul {

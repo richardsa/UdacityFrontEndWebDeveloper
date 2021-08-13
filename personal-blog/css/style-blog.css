@@ -8,6 +8,12 @@
     "ft";
 }
 
+.main ul {
+  list-style-type:none;
+}
+
+
+
 article h1 {
   font-size: 1.75rem;
   padding: 25px 0;
@@ -26,12 +32,13 @@ article h3 {
 }
 
 .main {
-  display: grid;
+  grid-area: main;
+  /* display: grid;
   grid-gap: 25px;
   grid-template-columns: 75% 25%;
   grid-template-areas:
     "article aside"
-    "recent recent"
+    "recent recent" */
 }
 
 .main article {
@@ -101,7 +108,7 @@ aside li a:hover, aside li a:focus {
 
 @media(max-width:700px) {
   .main {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
     grid-template-areas:
       "article"
       "aside"

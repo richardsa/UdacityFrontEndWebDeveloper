@@ -35,12 +35,13 @@ a.logo {display:flex;}
   .logo img{
     max-width: 370px;
   }
+  .nav-menu {font-size:12px; padding:0;}
 }
 
 @media(max-width:500px) {
   .logo img{
     align-self:center;
-    width: 200px;
-    height:25px;
+    width: 160px;
+    height:20px;
   }
 }
