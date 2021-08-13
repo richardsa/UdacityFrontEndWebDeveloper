@@ -33,6 +33,14 @@ a.logo {display:flex;}
 
 @media(max-width:700px) {
   .logo img{
-    max-width: 200px;
+    max-width: 370px;
+  }
+}
+
+@media(max-width:500px) {
+  .logo img{
+    align-self:center;
+    width: 200px;
+    height:25px;
   }
 }
