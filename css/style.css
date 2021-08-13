@@ -1,7 +1,7 @@
-@import './header.css';
-@import './main.css';
-@import './footer.css';
-@import './cards.css';
+@import '../css/header.css';
+@import '../css/main.css';
+@import '../css/footer.css';
+@import '../css/cards.css';
 
 body {
   margin: 0;
