@@ -25,7 +25,6 @@ article h3 {
   text-transform: uppercase;
 }
 
-
 .main {
   display: grid;
   grid-gap: 25px;
@@ -48,18 +47,39 @@ article h3 {
   grid-area: recent;
 }
 
+.author-metadata {display:flex;align-items:center;  font-weight:600; font-style:italic;}
+.author-metadata img {border-radius:50%; padding-right:10px; height:30px; width:30px;}
+.author-info {
+  margin-top:50px;
+  padding: 25px;
+  box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+  background-color: #eeeeee;
+}
+.author-info-heading {
+  font-size:1.25rem;
+  font-weight:600;
+}
 aside .sidebar {
   padding: 25px;
   box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
   background-color: #eeeeee;
 }
 
+aside ul {
+  padding-left: 5px;
+}
+
 aside li {
   list-style: none;
 }
 
-aside ul {
-  padding-left: 5px;
+aside li a {
+  text-decoration: none;
+}
+
+aside li a:hover, aside li a:focus {
+  text-decoration-color: #0089c7;
+  text-decoration:underline;
 }
 
 .blog-title-aside {
@@ -71,6 +91,12 @@ aside ul {
 .blog-aside-subheading {
   font-size: 1.25rem;
   padding: 10px 0 0 0;
+}
+
+.article-figure figcaption {
+  font-style:italic;
+  font-weight:400;
+  padding:10px 0;
 }
 
 @media(max-width:700px) {

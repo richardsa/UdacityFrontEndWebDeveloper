@@ -17,10 +17,14 @@
 
 .article-image a {
   color: #000000;
+  text-decoration:none;
 }
 
 .article-card:hover, .article-card:focus {
   box-shadow: 0 0 20px rgb(0 0 0 / 15%), 0 5px 5px rgb(0 0 0 / 15%);
+}
+.article-card:hover a, .article-card:focus a {
+  text-decoration:underline;
 }
 
 .article-image figcaption {
