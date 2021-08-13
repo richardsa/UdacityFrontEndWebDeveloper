@@ -1,5 +1,6 @@
 @import url('header.css');
+@import url('main.css');
 @import url('footer.css');
 @import url('cards.css');
-body {margin:0;}
-.main { max-width:1280px;margin: 25px auto; padding:25px;}
+body {margin:0; font-size:1em;font-family: Verdana, sans-serif;}
+h1 {text-align:center;}
