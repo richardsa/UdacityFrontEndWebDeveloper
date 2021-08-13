@@ -7,3 +7,13 @@
       "main main main main main main main main"
       "ft ft ft ft ft ft ft ft";
 }
+
+.main ul {
+  list-style-type:none;
+}
+
+.main li {
+      border: 1px solid rgba(0,0,0,.125);
+      padding:10px;
+      margin-bottom: -1px;
+}

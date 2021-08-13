@@ -5,12 +5,11 @@
   grid-area: main;
 }
 
-.main ul {
-  list-style-type:none;
+.main a {
+  color: #0089c7;
+  font-weight: 700;
+  text-decoration-color: #a2dffb;
 }
-
-.main li {
-      border: 1px solid rgba(0,0,0,.125);
-      padding:10px;
-      margin-bottom: -1px;
+.main a:hover, .container a:focus {
+  text-decoration-color: #0089c7;
 }
