@@ -33,12 +33,12 @@ article h3 {
 
 .main {
   grid-area: main;
-  /* display: grid;
+  display: grid;
   grid-gap: 25px;
   grid-template-columns: 75% 25%;
   grid-template-areas:
     "article aside"
-    "recent recent" */
+    "recent recent"
 }
 
 .main article {
@@ -87,6 +87,23 @@ aside li a {
 aside li a:hover, aside li a:focus {
   text-decoration-color: #0089c7;
   text-decoration:underline;
+}
+.share-icons {
+  display:block;
+  margin:0;
+}
+
+.share-icon-heading {
+  display:block;
+  font-weight:600;
+}
+
+.share-icons i {
+  padding:0 5px;
+}
+
+.share-icons a i:hover, .share-icons a i:focus {
+  color: blue;
 }
 
 .blog-title-aside {
