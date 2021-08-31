@@ -18,16 +18,21 @@
  *
 */
 //
-// const sections = document.querySelectorAll('section');
+
 const navList = document.querySelector('#navbar__list');
 const headingsArr = Array.from(document.querySelectorAll('section'));
-// const sections2 = document.querySelectorAll('section');
+
 /**
  * End Global Variables
  * Start Helper Functions
  *
 */
 
+function scrollIntoView(e){
+  e.preventDefault;
+  console.log('clicked')
+  console.log(e.target.getAttribute('href'));
+}
 
 
 /**
@@ -43,6 +48,7 @@ function buildNav(elements){
       var id = h.getAttribute('id');
       var link = document.createElement('a');
       link.setAttribute('href', '#' + id);
+      link.classList.add('menu__link')
       link.textContent = h.getAttribute('data-nav');
       newElement.innerHTML = link.outerHTML;
       navList.appendChild(newElement);
@@ -66,5 +72,5 @@ function buildNav(elements){
 // Build menu
 buildNav(headingsArr);
 // Scroll to section on link click
-
+document.getElementById("navbar__list").addEventListener("click", scrollIntoView);
 // Set sections as active
