@@ -28,10 +28,9 @@ const headingsArr = Array.from(document.querySelectorAll('section'));
  *
 */
 
-function scrollIntoView(e){
-  e.preventDefault;
-  console.log('clicked')
-  console.log(e.target.getAttribute('href'));
+function scrollIntoView(target){
+  const scrollTarget = document.getElementById(target).offsetTop;
+  window.scrollTo({ top: scrollTarget, behavior: 'smooth'});
 }
 
 
@@ -45,8 +44,8 @@ function scrollIntoView(e){
 function buildNav(elements){
     elements.forEach(h => {
       const newElement = document.createElement('li');
-      var id = h.getAttribute('id');
-      var link = document.createElement('a');
+      const id = h.getAttribute('id');
+      const link = document.createElement('a');
       link.setAttribute('href', '#' + id);
       link.classList.add('menu__link')
       link.textContent = h.getAttribute('data-nav');
@@ -69,8 +68,16 @@ function buildNav(elements){
  *
 */
 
-// Build menu
+// Build menu on page load
 buildNav(headingsArr);
-// Scroll to section on link click
-document.getElementById("navbar__list").addEventListener("click", scrollIntoView);
+
+// add listeners to nav menu links
+document.querySelectorAll('.menu__link').forEach(item => {
+  item.addEventListener('click', event => {
+    event.preventDefault();
+    // remove hashtag before passing to scrollIntoView function
+    const target = event.target.getAttribute('href').split('#')[1];
+    scrollIntoView(target);
+  })
+})
 // Set sections as active
