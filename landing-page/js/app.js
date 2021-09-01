@@ -33,6 +33,18 @@ function scrollIntoView(target){
   window.scrollTo({ top: scrollTarget, behavior: 'smooth'});
 }
 
+// Next we want to create a function that will be called when that element is intersected
+function handleIntersection(entries) {
+  // The callback will return an array of entries, even if you are only observing a single item
+  entries.map((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active-section')
+    } else {
+      entry.target.classList.remove('active-section')
+    }
+  });
+}
+
 
 /**
  * End Helper Functions
@@ -53,7 +65,6 @@ function buildNav(elements){
       navList.appendChild(newElement);
     });
 }
-
 
 
 // Add class 'active' to section when near top of viewport
@@ -80,4 +91,16 @@ document.querySelectorAll('.menu__link').forEach(item => {
     scrollIntoView(target);
   })
 })
+
 // Set sections as active
+document.querySelectorAll('section').forEach(item => {
+  console.log(item)
+  const target = item;
+  // Next we instantiate the observer with the function we created above. This takes an optional configuration
+  // object that we will use in the other examples.
+  const observer = new IntersectionObserver(handleIntersection);
+
+  // Finally start observing the target element
+  observer.observe(target);
+
+})
