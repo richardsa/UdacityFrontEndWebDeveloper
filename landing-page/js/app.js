@@ -28,22 +28,21 @@ const headingsArr = Array.from(document.querySelectorAll('section'));
  *
 */
 
-function scrollIntoView(target){
+const scrollIntoView = (target) => {
   const scrollTarget = document.getElementById(target).offsetTop;
   window.scrollTo({ top: scrollTarget, behavior: 'smooth'});
 }
 
-// Next we want to create a function that will be called when that element is intersected
-function handleIntersection(entries) {
-  // The callback will return an array of entries, even if you are only observing a single item
-  entries.map((entry) => {
+// https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+const intersectionCallback = (entries, observer) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('active-section')
     } else {
       entry.target.classList.remove('active-section')
     }
   });
-}
+};
 
 
 /**
@@ -66,7 +65,6 @@ function buildNav(elements){
     });
 }
 
-
 // Add class 'active' to section when near top of viewport
 
 
@@ -82,6 +80,7 @@ function buildNav(elements){
 // Build menu on page load
 buildNav(headingsArr);
 
+// Scroll to section on link click
 // add listeners to nav menu links
 document.querySelectorAll('.menu__link').forEach(item => {
   item.addEventListener('click', event => {
@@ -92,15 +91,15 @@ document.querySelectorAll('.menu__link').forEach(item => {
   })
 })
 
-// Set sections as active
+// Set sections as active on scroll
 document.querySelectorAll('section').forEach(item => {
-  console.log(item)
   const target = item;
-  // Next we instantiate the observer with the function we created above. This takes an optional configuration
-  // object that we will use in the other examples.
-  const observer = new IntersectionObserver(handleIntersection);
+  // increase threshold to prevent multiple sections with active class at the same time
+  const options = {
+    threshold: 0.5
+  }
+  const observer = new IntersectionObserver(intersectionCallback, options);
 
-  // Finally start observing the target element
   observer.observe(target);
 
 })
