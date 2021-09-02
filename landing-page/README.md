@@ -1,13 +1,13 @@
-# Landing Page Project
+# Richard Saldivar Landing Page Project
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Description](#description)
 
-## Instructions
+## Description
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This project was completed for the Udacity Front End Developer program. It demonstrates use of Javascript to accomplish the following tasks:
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+- Dynamically create navigation
+- Create scrollTo function to smoothly transition to relevant section when selected from the navigation
+- Add/remove class to current section in view to give an active state
