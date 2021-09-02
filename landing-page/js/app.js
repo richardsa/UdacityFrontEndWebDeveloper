@@ -28,6 +28,7 @@ const headingsArr = Array.from(document.querySelectorAll('section'));
  *
 */
 
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo
 const scrollIntoView = (target) => {
   const scrollTarget = document.getElementById(target).offsetTop;
   window.scrollTo({ top: scrollTarget, behavior: 'smooth'});
@@ -52,7 +53,7 @@ const intersectionCallback = (entries, observer) => {
 */
 
 // build the nav
-function buildNav(elements){
+const buildNav = (elements) => {
     elements.forEach(h => {
       const newElement = document.createElement('li');
       const id = h.getAttribute('id');
@@ -78,7 +79,10 @@ function buildNav(elements){
 */
 
 // Build menu on page load
-buildNav(headingsArr);
+document.addEventListener("DOMContentLoaded", function() {
+  buildNav(headingsArr);
+});
+
 
 // Scroll to section on link click
 // add listeners to nav menu links
