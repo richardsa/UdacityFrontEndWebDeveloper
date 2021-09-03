@@ -30,7 +30,6 @@ const headingsArr = Array.from(document.querySelectorAll('section'));
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollTo
 const scrollIntoView = (target) => {
-  console.log('test');
   const scrollTarget = document.getElementById(target).offsetTop;
   window.scrollTo({ top: scrollTarget, behavior: 'smooth'});
 }
