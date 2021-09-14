@@ -45,6 +45,11 @@ const data = [];
 
 app.post('/add', addData);
 
-function addDAta (req,res){
-    data.push(req.body);
+function addData (req,res){
+    console.log(res.body);
 };
+
+/*
+1b88888895a6d6f52a820b56b2332ca5
+api.openweathermap.org/data/2.5/weather?zip=30009,us&appid=1b88888895a6d6f52a820b56b2332ca5
+*/
