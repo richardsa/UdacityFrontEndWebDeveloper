@@ -46,5 +46,6 @@ const data = [];
 app.post('/add', addData);
 
 function addData (req,res){
-    console.log(res.body);
+  data.push(req.body);
+  console.log(data);
 };
