@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?units=imperial&zip=';
-const apiKey = 'yourapikey'
+const apiKey = '&appid=YOURAPIKEY';
 const formButton = document.getElementById('generate');
 
 
