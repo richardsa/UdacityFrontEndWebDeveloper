@@ -8,10 +8,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  justify-content: flex-start;
   min-height: 100vh;
   color: #f0d43a;
-  justify-content: center;
-  grid-gap: 1em;
   font-size: 20px;
   font-family: 'Oswald', sans-serif;
   max-width: 1280px;
@@ -22,6 +21,7 @@ body {
   width: 100%;
   flex-direction: column;
   display: flex;
+  align-self:flex-start;
 }
 
 .entry {

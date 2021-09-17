@@ -1,11 +1,10 @@
 /* Global Variables */
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?units=imperial&zip=';
-const apiKey = '&appid=ADDAPIKEYHERE';
+const apiKey = '&appid=YOURAPIKEY';
 const formButton = document.getElementById('generate');
 const dateElement = document.getElementById('date');
 const tempElement = document.getElementById('temp');
 const feelingsElement = document.getElementById('content');
-
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -67,10 +66,9 @@ const updateUI = async (url) => {
     const resDate = data.weatherData.date;
     const resTemp = data.weatherData.temp;
     const resFeelings = data.weatherData.feelings;
-    dateElement.innerText = `Date: ${resDate}`;
-    tempElement.innerText = `Temperature: ${resTemp} &#8457;`;
-    feelingsElement.innerText = `I'm feeling: ${resFeelings}`;
-    return data;
+    dateElement.innerHTML = `Date: ${resDate}`;
+    tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
+    feelingsElement.innerHTML = `I'm feeling: ${resFeelings}`;
   } catch (error) {
     console.log("error", error);
   }

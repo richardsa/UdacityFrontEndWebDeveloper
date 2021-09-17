@@ -21,7 +21,6 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
 const port = 3000;
 /* Spin up the server*/
@@ -46,5 +45,4 @@ app.post('/add', addData);
 // add response to project data object
 function addData (req,res){
   projectData.weatherData = req.body;
-  console.log(projectData);
 };
