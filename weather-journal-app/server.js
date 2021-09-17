@@ -40,12 +40,11 @@ function sendData (request, response) {
   response.send(projectData);
 };
 
-
-const data = [];
-
+// project data post route
 app.post('/add', addData);
 
+// add response to project data object
 function addData (req,res){
-  data.push(req.body);
-  console.log(data);
+  projectData.weatherData = req.body;
+  console.log(projectData);
 };
