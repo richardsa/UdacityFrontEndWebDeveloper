@@ -11,11 +11,14 @@ app.use(express.static('dist'))
 
 console.log(__dirname)
 
+const axios = require('axios');
+
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
     res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
+const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&txt=html&key=${process.env.API_KEY}&lang=en&url=`
 // designates what port the app will listen to for incoming requests
 app.listen(8080, function () {
     console.log('Example app listening on port 8080!')
@@ -23,5 +26,11 @@ app.listen(8080, function () {
 })
 
 app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+  let url = req.param("url");
+  let reqUrl = baseAPI + url;
+  axios.get(reqUrl)
+  .then(function (response) {
+    console.log(response.data)
+  res.send(response.data);
+  });
 })
