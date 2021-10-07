@@ -28,6 +28,7 @@ app.listen(8080, function () {
 app.get('/test', function (req, res) {
   let url = req.param("url");
   let reqUrl = baseAPI + url;
+  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
     console.log(response.data)
