@@ -1,29 +1,49 @@
 function handleSubmit(event) {
-    event.preventDefault()
-    // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    console.log("::: Form Submitted :::")
-    if (Client.urlValidator(formText)){
-      formText = formText.split('://')[1];
-      let fetchURL = 'http://localhost:8080/test?url=' + formText;
-      console.log(fetchURL);
-      fetch(fetchURL)
+  event.preventDefault()
+  // check what text was put into the form field
+  let formText = document.getElementById('name').value
+  console.log("::: Form Submitted :::")
+
+
+  if (Client.urlValidator(formText)) {
+    // replace protocol from url - not returning results if present
+    // from https://stackoverflow.com/a/8206299
+    formText = formText.replace(/(^\w+:|^)\/\//, '');
+    console.log('form text ' + formText);
+    let fetchURL = 'http://localhost:8080/test?url=' + formText;
+    console.log(fetchURL);
+    fetch(fetchURL)
       .then(res => res.json())
       .then(function(res) {
-          displayResults(res);
+        displayResults(res);
 
       })
-    } else {
-      console.log('invalid url');
-    }
+  } else {
+    displayErrorMessage('Invalid URL. Please try again.')
+  }
 
 
 }
 
-function displayResults(res){
-  const elements = [['Model', res.model], ['Agreement', res.agreement], ['Subjectivity', res.subjectivity], ['Score', res.score_tag], ['Confidence', res.confidence]];
+function displayResults(res) {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = "";
+  resultsDiv.classList.remove('error');
+  
+  if(res.status.code !=0){
+    displayErrorMessage(`${res.status.msg}: Please try again.`)
+    return;
+  }
+  const elements = [
+    ['Model', res.model],
+    ['Agreement', res.agreement],
+    ['Subjectivity', res.subjectivity],
+    ['Score', res.score_tag],
+    ['Confidence', res.confidence],
+    ['Irony', res.irony]
+  ];
+
+
   elements.forEach(element => {
     const newElement = document.createElement('span');
     newElement.classList.add('results-item');
@@ -32,5 +52,12 @@ function displayResults(res){
   })
 }
 
+function displayErrorMessage(message){
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.classList.add('error');
+  resultsDiv.textContent = message;
+}
 
-export { handleSubmit }
+export {
+  handleSubmit
+}
