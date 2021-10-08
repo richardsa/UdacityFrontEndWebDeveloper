@@ -1,5 +1,6 @@
 import { checkForName } from './js/nameChecker'
 import { handleSubmit } from './js/formHandler'
+import { urlValidator } from './js/urlChecker'
 
 import './styles/resets.scss'
 import './styles/base.scss'
@@ -15,5 +16,6 @@ console.log("CHANGE!!");
 
 export {
     checkForName,
-    handleSubmit
+    handleSubmit,
+    urlValidator
 }

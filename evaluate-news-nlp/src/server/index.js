@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
-const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&txt=html&key=${process.env.API_KEY}&lang=en&url=`
+const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&key=${process.env.API_KEY}&lang=en&url=`
 // designates what port the app will listen to for incoming requests
 app.listen(8080, function () {
     console.log('Example app listening on port 8080!')
