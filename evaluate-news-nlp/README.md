@@ -1,3 +1,24 @@
+# Installation Instructions
+
+First, clone or download this [repository](https://github.com/richardsa/UdacityFrontEndWebDeveloper) (git clone https://github.com/<username>/UdacityFrontEndWebDeveloper.git for example)
+
+Then change your directory to this procject:
+
+cd UdacityFrontEndWebDeveloper/evaluate-news-nlp
+
+Create a .env file in the root directory (evaluate-news-nlp) add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
+API_KEY=YOUR_MEANINGCLOUD_API_KEY
+
+Next run the following two commands:
+
+- npm run build-prod
+- npm start
+
+Now you can access the site at [http://localhost:8080/](http://localhost:8080/)
+
+If you have issues with the default port (8080), you can specify a new port in the .env file as follows (port 9999 in the example)
+PORT=9999
+
 # Project Instructions
 
 This repo is your starter code for the project. It is the same as the starter code we began with in lesson 2. Install and configure Webpack just as we did in the course. Feel free to refer to the course repo as you build this one, and remember to make frequent commits and to create and merge branches as necessary!
@@ -79,8 +100,8 @@ console.log(`Your API key is ${process.env.API_KEY}`);
 ...Not that you would want to do that. This means that our updated API credential settings will look like this:
 ```javascript
 // set aylien API credentials
-// NOTICE that textapi is the name I used, but it is arbitrary. 
-// You could call it aylienapi, nlp, or anything else, 
+// NOTICE that textapi is the name I used, but it is arbitrary.
+// You could call it aylienapi, nlp, or anything else,
 //   just make sure to make that change universally!
 var textapi = new aylien({
   application_id: process.env.API_ID,
@@ -90,7 +111,7 @@ var textapi = new aylien({
 
 ### Step 5: Using the API
 
-We're ready to go! The API has a lot of different endpoints you can take a look at [here](https://docs.aylien.com/textapi/endpoints/#api-endpoints). And you can see how using the SDK simplifies the requests we need to make. 
+We're ready to go! The API has a lot of different endpoints you can take a look at [here](https://docs.aylien.com/textapi/endpoints/#api-endpoints). And you can see how using the SDK simplifies the requests we need to make.
 
 I won't provide further examples here, as it's up to you to create the various requests and make sure your server is set up appropriately.
 
@@ -100,7 +121,7 @@ Once you are hooked up to the Aylien API, you are most of the way there! Along w
 
 - Parse the response body to dynamically fill content on the page.
 - Test that the server and form submission work, making sure to also handle error responses if the user input does not match API requirements. 
-- Go back to the web pack config and add the setup for service workers.  
+- Go back to the web pack config and add the setup for service workers. 
 - Test that the site is now available even when you stop your local server 
 
 ## Deploying
