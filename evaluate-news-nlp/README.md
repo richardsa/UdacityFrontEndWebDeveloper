@@ -1,12 +1,25 @@
+# Description
+
+This project was completed for the Udacity Front End Developer program.
+
+The goal of this project is to give students practice with:
+
+- Setting up Webpack
+- Sass styles
+- Webpack Loaders and Plugins
+- Creating layouts and page design
+- Service workers
+- Using APIs and creating requests to external urls
+
 # Installation Instructions
 
-First, clone or download this [repository](https://github.com/richardsa/UdacityFrontEndWebDeveloper) (git clone https://github.com/<username>/UdacityFrontEndWebDeveloper.git for example)
+First, clone or download this [repository](https://github.com/richardsa/UdacityFrontEndWebDeveloper) (git clone https://github.com/username/UdacityFrontEndWebDeveloper.git for example)
 
 Then change your directory to this procject:
 
 cd UdacityFrontEndWebDeveloper/evaluate-news-nlp
 
-Create a .env file in the root directory (evaluate-news-nlp) add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
+Create a .env file in the root directory (evaluate-news-nlp) and add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
 API_KEY=YOUR_MEANINGCLOUD_API_KEY
 
 Next run the following two commands:
@@ -16,8 +29,13 @@ Next run the following two commands:
 
 Now you can access the site at [http://localhost:8080/](http://localhost:8080/)
 
-If you have issues with the default port (8080), you can specify a new port in the .env file as follows (port 9999 in the example)
+Note that if you have issues with the default port (8080), you can specify a new port in the .env file as follows (port 9999 in the example):
+
 PORT=9999
+
+# Original Instructions Below
+
+---
 
 # Project Instructions
 
