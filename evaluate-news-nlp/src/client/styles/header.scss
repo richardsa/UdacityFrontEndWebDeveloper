@@ -1,5 +1,48 @@
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
+.header {
+    background-color:#0096FF;
+
+}
+
+.header .nav {
+  display: flex;
+  justify-content:space-around;
+}
+
+
+.header ul {
+  display: inline-block;
+  align-self:center;
+}
+
+.header li {
+  display: inline-block;
+}
+
+.header li a {
+  color: white;
+  text-decoration: none;
+  padding-right: 15px;
+}
+
+.header li a:hover, .header li a:focus {
+  text-decoration: underline;
+}
+a.logo {display:flex;}
+.logo img{
+  max-height:50px;
+}
+
+@media screen and (max-width:700px) {
+  .logo img{
+    max-width: 370px;
+  }
+  .nav-menu {font-size:12px; padding:0;}
+}
+
+@media screen and (max-width:500px) {
+  .logo img{
+    align-self:center;
+    width: 160px;
+    height:20px;
+  }
 }
