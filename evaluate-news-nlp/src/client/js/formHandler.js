@@ -9,9 +9,7 @@ function handleSubmit(event) {
     // replace protocol from url - not returning results if present
     // from https://stackoverflow.com/a/8206299
     formText = formText.replace(/(^\w+:|^)\/\//, '');
-    console.log('form text ' + formText);
-    let fetchURL = 'http://localhost:8080/test?url=' + formText;
-    console.log(fetchURL);
+    let fetchURL = `http://localhost:8080/test/${formText}`;
     fetch(fetchURL)
       .then(res => res.json())
       .then(function(res) {
@@ -29,7 +27,7 @@ function displayResults(res) {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = "";
   resultsDiv.classList.remove('error');
-  
+
   if(res.status.code !=0){
     displayErrorMessage(`${res.status.msg}: Please try again.`)
     return;

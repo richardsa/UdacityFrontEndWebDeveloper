@@ -29,10 +29,6 @@ Next run the following two commands:
 
 Now you can access the site at [http://localhost:8080/](http://localhost:8080/)
 
-Note that if you have issues with the default port (8080), you can specify a new port in the .env file as follows (port 9999 in the example):
-
-PORT=9999
-
 # Original Instructions Below
 
 ---

@@ -13,6 +13,9 @@ console.log(__dirname)
 
 const axios = require('axios');
 
+const cors = require('cors');
+app.use(cors());
+
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
     res.sendFile(path.resolve('src/client/views/index.html'))
@@ -21,17 +24,15 @@ app.get('/', function (req, res) {
 const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&key=${process.env.API_KEY}&lang=en&url=`
 // designates what port the app will listen to for incoming requests
 
-var port = process.env.PORT || 8080;
+var port = 8080;
 
 app.listen(port, function () {
     console.log(`Example app listening on port ${port}!`)
-    console.log(`Your API key is ${process.env.API_KEY}`);
 })
 
-app.get('/test', function (req, res) {
-  let url = req.param("url");
+app.get('/test/:url', function (req, res) {
+  let url = req.params.url
   let reqUrl = baseAPI + url;
-  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
     console.log(response.data)
