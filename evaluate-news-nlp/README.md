@@ -22,8 +22,9 @@ cd UdacityFrontEndWebDeveloper/evaluate-news-nlp
 Create a .env file in the root directory (evaluate-news-nlp) and add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
 API_KEY=YOUR_MEANINGCLOUD_API_KEY
 
-Next run the following two commands:
+Next run the following commands:
 
+- npm install
 - npm run build-prod
 - npm start
 
