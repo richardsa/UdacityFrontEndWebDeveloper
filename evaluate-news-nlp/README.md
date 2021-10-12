@@ -13,9 +13,9 @@ The goal of this project is to give students practice with:
 
 # Installation Instructions
 
-First, clone or download this [repository](https://github.com/richardsa/UdacityFrontEndWebDeveloper) (git clone https://github.com/username/UdacityFrontEndWebDeveloper.git for example)
+First, clone or download this [repository](https://github.com/richardsa/UdacityFrontEndWebDeveloper/archive/refs/heads/main.zip) (git clone https://github.com/username/UdacityFrontEndWebDeveloper.git for example)
 
-Then change your directory to this procject:
+Then change your directory to this project:
 
 cd UdacityFrontEndWebDeveloper/evaluate-news-nlp
 
