@@ -26,7 +26,7 @@ Next run the following commands:
 
 - npm install
 - npm run build-prod
-- npm start
+- npm run start
 
 Now you can access the site at [http://localhost:8080/](http://localhost:8080/)
 
