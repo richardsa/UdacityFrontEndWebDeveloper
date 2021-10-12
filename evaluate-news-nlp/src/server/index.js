@@ -17,12 +17,11 @@ const cors = require('cors');
 app.use(cors());
 
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
     res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
 const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&key=${process.env.API_KEY}&lang=en&url=`
-// designates what port the app will listen to for incoming requests
+
 
 var port = 8080;
 
