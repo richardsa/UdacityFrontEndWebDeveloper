@@ -7,3 +7,4 @@ This repository will house projects from the Udacity Front Web End Developer Cou
 * [Landing Page](/landing-page)
 * [Weather Journal App](/weather-journal-app)
 * [Evaluate A News Article with Natural Language Processing](/evaluate-news-nlp)
+* [Capstone Project](/capstone-project)
