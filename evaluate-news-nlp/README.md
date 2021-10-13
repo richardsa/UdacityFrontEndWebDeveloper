@@ -1,3 +1,11 @@
+# Richard Saldivar Natural Language Processing Project
+
+## Table of Contents
+
+* [Description](#description)
+* [Installation Instructions](#installation_instructions)
+* [Original Instructions](#original_instructions)
+
 # Description
 
 This project was completed for the Udacity Front End Developer program.
