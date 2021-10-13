@@ -27,8 +27,9 @@ Then change your directory to this project:
 
 cd UdacityFrontEndWebDeveloper/evaluate-news-nlp
 
-Create a .env file in the root directory (evaluate-news-nlp) and add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
-API_KEY=YOUR_MEANINGCLOUD_API_KEY
+Create a .env file in the root directory of this project (UdacityFrontEndWebDeveloper/evaluate-news-nlp) and add your [MeaningCloud API Key](https://www.meaningcloud.com/developer/getting-started) as follows:
+
+- API_KEY=YOUR_MEANINGCLOUD_API_KEY
 
 Next run the following commands:
 
@@ -37,6 +38,10 @@ Next run the following commands:
 - npm run start
 
 Now you can access the site at [http://localhost:8080/](http://localhost:8080/)
+
+To run the jest tests, run the following command:
+
+- npm run test
 
 # Original Instructions Below
 
