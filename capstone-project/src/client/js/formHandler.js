@@ -1,3 +1,6 @@
+const formBtn = document.getElementById('submitBtn');
+const searchForm = document.getElementById('searchForm');
+
 function handleSubmit(event) {
   event.preventDefault()
   // check what text was put into the form field
@@ -56,6 +59,12 @@ function displayErrorMessage(message){
   resultsDiv.textContent = message;
 }
 
+function submitEventListener(){
+  const searchForm = document.getElementById('searchForm');
+  console.log('clicked')
+  searchForm.addEventListener('submit', handleSubmit);
+}
+
 export {
-  handleSubmit
+  submitEventListener
 }

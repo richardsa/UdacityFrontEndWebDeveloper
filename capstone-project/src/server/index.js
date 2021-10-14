@@ -29,7 +29,7 @@ app.listen(port, function () {
     console.log(`Example app listening on port ${port}!`)
 })
 
-app.get('/test/:url', function (req, res) {
+app.get('/test/:url*', function (req, res) {
   let url = req.params.url
   let reqUrl = baseAPI + url;
   axios.get(reqUrl)
