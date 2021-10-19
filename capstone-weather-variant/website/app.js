@@ -1,6 +1,6 @@
 /* Global Variables */
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?units=imperial&zip=';
-const apiKey = '&appid=test';
+const baseURL = 'http://api.geonames.org/searchJSON?name=';
+const apiKey = '&username=richardsa';
 const formButton = document.getElementById('generate');
 const dateElement = document.getElementById('date');
 const tempElement = document.getElementById('temp');
@@ -17,11 +17,17 @@ function formSubmit(e) {
   getWeather(baseURL, zipCode, apiKey)
     .then(function(data) {
       const feelings = document.getElementById('feelings').value;
-      const temp = data.main.temp;
+      const cityBlob = data.geonames[0]
+      const city = cityBlob.name;
+      const lat = cityBlob.lat;
+      const long = cityBlob.lng;
+      console.log(city);
+      console.log(lat);
+      console.log(long);
       postWeather('/add', {
-        temp: temp,
-        feelings: feelings,
-        date: newDate
+        temp: city,
+        feelings: lat,
+        date: long
       })
     })
     .then(function() {
