@@ -3,8 +3,13 @@ const baseURL = 'http://api.geonames.org/searchJSON?name=';
 const apiKey = '&username=richardsa';
 
 /* documentation https://www.weatherbit.io/api */
-const baseWeatherURL = 'https://api.weatherbit.io/v2.0/current?include=minutely';
+const baseWeatherURL = 'https://api.weatherbit.io/v2.0/current?';
 const weatherApiKey = '&key=7f4a4e073d7644b3b369e6f93023af3d';
+
+/* pixabay */
+const basePixURL = 'https://pixabay.com/api/?image_type=photo&pretty=true'
+const pixApiKey = '&key=23952205-479b88a6e03021f13e9186c6c';
+
 const formButton = document.getElementById('generate');
 const dateElement = document.getElementById('date');
 const tempElement = document.getElementById('temp');
@@ -17,11 +22,21 @@ let newDate = d.getMonth()+1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 // handle form submit
 function formSubmit(e) {
-  const zipCode = document.getElementById('zip').value;
-  getCity(baseURL, zipCode, apiKey)
-    .then(function(data) {
+  const city = document.getElementById('zip').value;
+  getCity(city)
+    .then(function() {
+      updateUI('all')
+    })
+}
+
+const getCity = async (city) => {
+  let fetchURL = `http://localhost:3000/cities/${city}`;
+  fetch(fetchURL)
+    .then(res => res.json())
+    .then(function(res) {
       const feelings = document.getElementById('feelings').value;
-      const cityBlob = data.geonames[0]
+      console.log('data' + res);
+      const cityBlob = res.geonames[0]
       const city = cityBlob.name;
       const lat = cityBlob.lat;
       const long = cityBlob.lng;
@@ -34,21 +49,10 @@ function formSubmit(e) {
         feelings: lat,
         date: long
       })
-    })
-    .then(function() {
-      updateUI('all')
+      return res;
     })
 }
 
-const getCity = async (baseURL, zipCode, key) => {
-  const res = await fetch(baseURL + zipCode + key)
-  try {
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.log("error", error);
-  }
-}
 // send api call to openweathermap
 const getWeather = async (baseURL, lat, long, key) => {
   const reqURL = `${baseURL}&lat=${lat}&lon=${long}${weatherApiKey}`

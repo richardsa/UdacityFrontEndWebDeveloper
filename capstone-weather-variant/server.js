@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -29,7 +32,12 @@ const server = app.listen(port, listening);
 function listening() {
   // console.log(server);
   console.log(`running on localhost: ${port}`);
+  console.log(`geoNamesAPI = ${process.env.geoNamesAPI}`);
+  console.log(`weatherAPI = ${process.env.weatherAPI}`);
+  console.log(`pixAPI = ${process.env.pixAPI}`);
 };
+
+const axios = require('axios');
 
 // project Data get route
 app.get('/all', sendData);
@@ -46,3 +54,14 @@ app.post('/add', addData);
 function addData (req,res){
   projectData.weatherData = req.body;
 };
+
+const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.geoNamesAPI}&name=`
+app.get('/cities/:city*', function (req, res) {
+  let city = req.params.city
+  let reqUrl = baseGeoAPI + city;
+  axios.get(reqUrl)
+  .then(function (response) {
+    console.log(response.data)
+  res.send(response.data);
+  });
+})
