@@ -39,6 +39,8 @@ function listening() {
 
 const axios = require('axios');
 
+const Flatted = require('flatted');
+
 // project Data get route
 app.get('/all', sendData);
 
@@ -62,6 +64,22 @@ app.get('/cities/:city*', function (req, res) {
   axios.get(reqUrl)
   .then(function (response) {
     console.log(response.data)
-  res.send(response.data);
+    res.send(response.data);
+  });
+})
+
+
+/* documentation https://www.weatherbit.io/api */
+const baseWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}`
+app.get('/weather/', function (req, res) {
+  let lat = req.query.lat;
+  let lon = req.query.lon;
+  console.log(`lat = ${lat} and lon = ${lon}`)
+  let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+    console.log(response)
+    res.send(Flatted.stringify(response));
   });
 })

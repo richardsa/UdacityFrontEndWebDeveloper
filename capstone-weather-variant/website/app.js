@@ -24,15 +24,7 @@ let newDate = d.getMonth()+1 + '.' + d.getDate() + '.' + d.getFullYear();
 function formSubmit(e) {
   const city = document.getElementById('zip').value;
   getCity(city)
-    .then(function() {
-      updateUI('all')
-    })
-}
-
-const getCity = async (city) => {
-  let fetchURL = `http://localhost:3000/cities/${city}`;
-  fetch(fetchURL)
-    .then(res => res.json())
+    // .then(res => res.json())
     .then(function(res) {
       const feelings = document.getElementById('feelings').value;
       console.log('data' + res);
@@ -43,20 +35,37 @@ const getCity = async (city) => {
       console.log(city);
       console.log(lat);
       console.log(long);
-      getWeather(baseWeatherURL, lat, long, weatherApiKey)
+      getWeather(lat, long)
       postWeather('/add', {
         temp: city,
         feelings: lat,
         date: long
       })
-      return res;
     })
 }
 
+const getCity = async (city) => {
+  let fetchURL = `http://localhost:3000/cities/${city}`;
+  const res = await fetch(fetchURL)
+  try {
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("error", error);
+  }
+  // fetch(fetchURL)
+  //   .then(res => res.json())
+  //   .then(function(res) {
+  //     console.log('res' + res)
+  //     return res;
+  //   })
+}
+
 // send api call to openweathermap
-const getWeather = async (baseURL, lat, long, key) => {
-  const reqURL = `${baseURL}&lat=${lat}&lon=${long}${weatherApiKey}`
-  const res = await fetch(reqURL)
+const getWeather = async (lat, long) => {
+  const fetchURL = `http://localhost:3000/weather/?lat=${lat}&lon=${long}`
+  const res = await fetch(fetchURL)
   try {
     const data = await res.json();
     console.log(data);
