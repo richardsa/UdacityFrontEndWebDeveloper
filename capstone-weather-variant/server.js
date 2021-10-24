@@ -57,6 +57,8 @@ function addData (req,res){
   projectData.weatherData = req.body;
 };
 
+/* Geonames */
+/* geonames documentation http://www.geonames.org/export/web-services.html */
 const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.geoNamesAPI}&name=`
 app.get('/cities/:city*', function (req, res) {
   let city = req.params.city
@@ -69,13 +71,28 @@ app.get('/cities/:city*', function (req, res) {
 })
 
 
-/* documentation https://www.weatherbit.io/api */
+/* weather bit */
+/* weather bit documentation https://www.weatherbit.io/api */
 const baseWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}`
 app.get('/weather/', function (req, res) {
   let lat = req.query.lat;
   let lon = req.query.lon;
   console.log(`lat = ${lat} and lon = ${lon}`)
   let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+    console.log(response)
+    res.send(Flatted.stringify(response));
+  });
+})
+
+/* pixabay */
+/* pixabay documentation  https://pixabay.com/api/docs/ */
+const basePixURL = `https://pixabay.com/api/?image_type=photo&pretty=true&key=${process.env.pixAPI}`
+app.get('/images/:searchQuery', function (req, res) {
+  let query = req.params.searchQuery;
+  let reqUrl = `${basePixURL}&q=${query}`;
   console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
