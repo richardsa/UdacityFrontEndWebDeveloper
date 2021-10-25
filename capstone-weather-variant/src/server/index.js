@@ -22,7 +22,7 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('dist'))
 
 // Setup Server
 const port = 3000;
@@ -43,6 +43,10 @@ const Flatted = require('flatted');
 
 // project Data get route
 app.get('/all', sendData);
+
+app.get('/', function (req, res) {
+    res.sendFile(path.resolve('src/client/views/index.html'))
+})
 
 // return project data
 function sendData (request, response) {
