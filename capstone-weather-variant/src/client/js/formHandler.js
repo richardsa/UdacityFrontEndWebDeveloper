@@ -1,7 +1,8 @@
-const formButton = document.getElementById('generate');
+const formButton = document.getElementById('submit');
 const dateElement = document.getElementById('date');
 const tempElement = document.getElementById('temp');
 const feelingsElement = document.getElementById('content');
+const searchForm = document.getElementById('search-form');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -9,12 +10,12 @@ let newDate = d.getMonth()+1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 
 // handle form submit
-function formSubmit(e) {
-  const city = document.getElementById('zip').value;
-  getCity(city)
+function formSubmit(event) {
+  event.preventDefault();
+  const city = document.getElementById('city').value;
+  Client.getCity(city)
     // .then(res => res.json())
     .then(function(res) {
-      const feelings = document.getElementById('feelings').value;
       console.log('data' + res);
       const cityBlob = res.geonames[0]
       const city = cityBlob.name;
@@ -23,9 +24,9 @@ function formSubmit(e) {
       console.log(city);
       console.log(lat);
       console.log(long);
-      getWeather(lat, long)
+      Client.getWeather(lat, long)
         .then(function(res) {
-          getImage(city)
+          Client.getImage(city)
         })
 
       postWeather('/add', {
@@ -36,49 +37,9 @@ function formSubmit(e) {
     })
 }
 
-const getImage = async (city) => {
-  let fetchURL = `http://localhost:3000/images/${city}`;
-  const res = await fetch(fetchURL)
-  try {
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log("error", error);
-  }
 
-}
 
-const getCity = async (city) => {
-  let fetchURL = `http://localhost:3000/cities/${city}`;
-  const res = await fetch(fetchURL)
-  try {
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log("error", error);
-  }
-  // fetch(fetchURL)
-  //   .then(res => res.json())
-  //   .then(function(res) {
-  //     console.log('res' + res)
-  //     return res;
-  //   })
-}
 
-// send api call to openweathermap
-const getWeather = async (lat, long) => {
-  const fetchURL = `http://localhost:3000/weather/?lat=${lat}&lon=${long}`
-  const res = await fetch(fetchURL)
-  try {
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.log("error", error);
-  }
-}
 
 // send post request to app api
 const postWeather = async (url, data) => {
@@ -115,7 +76,7 @@ const updateUI = async (url) => {
 }
 
 // bind listener to form button
-formButton.addEventListener('click', formSubmit);
+searchForm.addEventListener('submit', formSubmit);
 
 
 export {
