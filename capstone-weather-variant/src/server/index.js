@@ -58,7 +58,8 @@ app.post('/add', addData);
 
 // add response to project data object
 function addData (req,res){
-  projectData.weatherData = req.body;
+  projectData.data = req.body;
+  res.send(projectData.data)
 };
 
 /* Geonames */
@@ -83,11 +84,9 @@ app.get('/weather/', function (req, res) {
   let lon = req.query.lon;
   console.log(`lat = ${lat} and lon = ${lon}`)
   let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
-  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
-    console.log(response)
-    res.send(Flatted.stringify(response));
+    res.send(response.data);
   });
 })
 
@@ -100,7 +99,8 @@ app.get('/images/:searchQuery', function (req, res) {
   console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
-    console.log(response)
-    res.send(Flatted.stringify(response));
+    // console.log(response)
+    console.log(response.data.hits[0]);
+    res.send(response.data.hits[0]);
   });
 })

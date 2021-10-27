@@ -1,12 +1,13 @@
 const formButton = document.getElementById('submit');
-const dateElement = document.getElementById('date');
+const dateElement = document.getElementById('location');
 const tempElement = document.getElementById('temp');
 const feelingsElement = document.getElementById('content');
 const searchForm = document.getElementById('search-form');
+const resultsImage = document.getElementById('location-img');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+1 + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 
 // handle form submit
@@ -16,33 +17,44 @@ function formSubmit(event) {
   Client.getCity(city)
     // .then(res => res.json())
     .then(function(res) {
-      console.log('data' + res);
+      console.log('data12' + JSON.stringify(res));
       const cityBlob = res.geonames[0]
       const city = cityBlob.name;
+      const state = cityBlob.adminCode1;
+      const country = cityBlob.countryCode;
       const lat = cityBlob.lat;
       const long = cityBlob.lng;
       console.log(city);
       console.log(lat);
       console.log(long);
       Client.getWeather(lat, long)
-        .then(function(res) {
+        .then(function(weatherRes) {
+          console.log(`res1: ${JSON.stringify(weatherRes.city_name)}`)
+          console.log(`res1: ${JSON.stringify(weatherRes.country_code)}`)
+          console.log(`res1: ${JSON.stringify(weatherRes.temp)}`)
+          console.log(`res1: ${JSON.stringify(weatherRes.weather.description)}`)
+          console.log(`count: ${JSON.stringify(weatherRes.count)}`)
+          console.log(`res2: ${res}`)
           Client.getImage(city)
+            .then(function(imageRes) {
+              console.log('imageRes' + imageRes.largeImageURL)
+              const img = imageRes.largeImageURL;
+              postData('/add', {
+                city: city,
+                state: state,
+                country: country,
+                image: img
+              })
+              .then(function() {
+                updateUI('all')
+              })
+            })
         })
-
-      postWeather('/add', {
-        temp: city,
-        feelings: lat,
-        date: long
-      })
     })
 }
 
-
-
-
-
 // send post request to app api
-const postWeather = async (url, data) => {
+const postData = async (url, data) => {
   const response = await fetch(url, {
     method: 'POST',
     credentials: 'same-origin',
@@ -64,12 +76,14 @@ const updateUI = async (url) => {
   const res = await fetch(url)
   try {
     const data = await res.json();
-    const resDate = data.weatherData.date;
-    const resTemp = data.weatherData.temp;
-    const resFeelings = data.weatherData.feelings;
+    const resDate = data.data.city;
+    const resTemp = data.data.state;
+    const resFeelings = data.data.country;
+    const resImg = data.data.image;
+    console.log('update ui' + resImg);
     dateElement.innerHTML = `Date: ${resDate}`;
-    tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
-    feelingsElement.innerHTML = `I'm feeling: ${resFeelings}`;
+    // tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
+    resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
   } catch (error) {
     console.log("error", error);
   }
