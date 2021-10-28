@@ -1,6 +1,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #fff;
+  margin:0;
 }
 
 #app {
@@ -8,12 +9,13 @@ body {
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 100vh;
   color: #495057;
+  min-height:calc(100vh - 150px);
   font-size: 20px;
   font-family: 'Oswald', sans-serif;
   max-width: 1280px;
   margin: auto;
+  padding:25px;
 }
 
 .holder {
@@ -29,13 +31,10 @@ body {
 
 #entryHolder {padding:25px 0;}
 
-#date {}
 
-#temp {}
-
-#content {}
-
-.headline {}
+.headline {
+  margin:25px 0;
+}
 
 .title { padding:25px 0;}
 
@@ -45,4 +44,21 @@ h1 {
   font-size: 36px;
 }
 
+#entryHolder {
+  display:flex;
+}
+
+#entryHolder > div {
+  padding:25px;
+  flex-basis: 50%;
+}
+
+img.results-img {
+  max-width:100%;
+}
+
+/* media queries */
+@media (max-width: 769px) {
+  #entryHolder { flex-direction:column;}
+}
 

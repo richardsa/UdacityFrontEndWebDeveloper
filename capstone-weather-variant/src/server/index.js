@@ -64,10 +64,11 @@ function addData (req,res){
 
 /* Geonames */
 /* geonames documentation http://www.geonames.org/export/web-services.html */
-const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.geoNamesAPI}&name=`
+const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.geoNamesAPI}&q=`
 app.get('/cities/:city*', function (req, res) {
   let city = req.params.city
   let reqUrl = baseGeoAPI + city;
+  console.log(reqUrl)
   axios.get(reqUrl)
   .then(function (response) {
     console.log(response.data)
@@ -89,8 +90,8 @@ app.get('/weather/', function (req, res) {
     res.send(response.data);
   });
 })
+
 const avgWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}&units=I`
-//   const fetchURL = `http://localhost:3000/avg-weather/?lat=${lat}&lon=${long}&start_day=${startDate}&end_day=${endDate}`
 app.get('/avg-weather/', function (req, res) {
   let lat = req.query.lat;
   let lon = req.query.lon;

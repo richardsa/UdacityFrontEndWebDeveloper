@@ -9,6 +9,14 @@
 </head>
 
 <body>
+  <header class="header">
+    <nav class="nav">
+      <a class="logo" href="/"><img alt="Richie's Travel App Logo" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png" /></a>
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+  </header>
   <div id="app">
     <div class="holder headline">
       Richie's Travel App
@@ -27,15 +35,19 @@
     </form>
 
     <div class="holder results">
-      <div class="title">Your Trip's Weather</div>
       <div id="entryHolder">
+        <div class="weather-container">
+          <div id="heading"></div>
+          <div id="temp"></div>
+          <div id="weather"></div>
+        </div>
         <div id="location-img"></div>
-        <div id="heading"></div>
-        <div id="temp"></div>
-        <div id="weather"></div>
       </div>
     </div>
   </div>
+  <footer>
+        <p>&copy 2021 Richie's Travel App </p>
+  </footer>
   <script>
     // Check that service workers are supported
     if ('serviceWorker' in navigator) {

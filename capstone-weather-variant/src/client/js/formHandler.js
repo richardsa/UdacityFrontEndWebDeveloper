@@ -21,7 +21,7 @@ function formSubmit(event) {
   let tripDate = document.getElementById('trip-date').value;
   let formattedTripDate = new Date(tripDate)
   // console.log('date ' + tripDate)
-  if(formattedTripDate  >= weekFromToday){
+  if (formattedTripDate >= weekFromToday) {
     timeFrame = 'Predicted'
   } else {
     timeFrame = 'Current'
@@ -36,38 +36,32 @@ function formSubmit(event) {
       const country = cityBlob.countryCode;
       const lat = cityBlob.lat;
       const long = cityBlob.lng;
-      // console.log(city);
-      // console.log(lat);
-      // console.log(long);
       Client.getWeather(lat, long, timeFrame, tripDate)
         .then(function(weatherRes) {
-          // console.log(`res1: ${JSON.stringify(weatherRes.city_name)}`)
-          // console.log(`res1: ${JSON.stringify(weatherRes.country_code)}`)
-          // console.log(`res1: ${JSON.stringify(weatherRes.temp)}`)
-          // console.log(`res1: ${JSON.stringify(weatherRes.weather.description)}`)
-          // console.log(`res1: ${JSON.stringify(weatherRes.weather.icon)}`)
-          // console.log(`count: ${JSON.stringify(weatherRes.count)}`)
           const temp = weatherRes.temp;
           const weatherDes = weatherRes.weather.description;
           const weatherIcon = weatherRes.weather.icon;
           console.log(`res2: ${res}`)
           Client.getImage(city)
             .then(function(imageRes) {
-              console.log('imageRes' + imageRes.largeImageURL)
-              const img = imageRes.largeImageURL;
+              // puppy placeholder in case no image is returned
+              let img = 'https://placedog.net/500';
+              if (imageRes.webformatURL) {
+                img = imageRes.webformatURL;
+              }
               postData('/add', {
-                city: city,
-                state: state,
-                country: country,
-                image: img,
-                temp: temp,
-                description: weatherDes,
-                icon: weatherIcon,
-                timeFrame: timeFrame
-              })
-              .then(function() {
-                updateUI('all')
-              })
+                  city: city,
+                  state: state,
+                  country: country,
+                  image: img,
+                  temp: temp,
+                  description: weatherDes,
+                  icon: weatherIcon,
+                  timeFrame: timeFrame
+                })
+                .then(function() {
+                  updateUI('all')
+                })
             })
         })
     })
@@ -104,12 +98,10 @@ const updateUI = async (url) => {
     const resTemp = data.data.temp;
     const resIcon = data.data.icon;
     const resTimeFrame = data.data.timeFrame;
-    headingElement.innerHTML = `${resTimeFrame} weather for ${resCity}, ${resState}, ${resCountry}`;
-    // tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
+    headingElement.innerHTML = `${resTimeFrame} Weather for ${resCity}, ${resState}, ${resCountry}`;
     tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
-  // resultsImage.innerHTML = ` <img src=${MyImage} alt="torchlight in the sky" />`
-   resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
-    weatherElement.innerHTML = `${resDescription} ${resIcon}`
+    resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
+    weatherElement.innerHTML = resDescription
   } catch (error) {
     console.log("error", error);
   }
