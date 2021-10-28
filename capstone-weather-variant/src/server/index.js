@@ -78,14 +78,29 @@ app.get('/cities/:city*', function (req, res) {
 
 /* weather bit */
 /* weather bit documentation https://www.weatherbit.io/api */
-const baseWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}`
+const baseWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}&units=I`
 app.get('/weather/', function (req, res) {
   let lat = req.query.lat;
   let lon = req.query.lon;
-  console.log(`lat = ${lat} and lon = ${lon}`)
   let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
+  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
+    res.send(response.data);
+  });
+})
+const avgWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}&units=I`
+//   const fetchURL = `http://localhost:3000/avg-weather/?lat=${lat}&lon=${long}&start_day=${startDate}&end_day=${endDate}`
+app.get('/avg-weather/', function (req, res) {
+  let lat = req.query.lat;
+  let lon = req.query.lon;
+  let startDate = req.query.start_day;
+  let endDate = req.query.end_day;
+  let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}&start_day=${startDate}&end_day=${endDate}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+      console.log(response.data)
     res.send(response.data);
   });
 })

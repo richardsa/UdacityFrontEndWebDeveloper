@@ -1,9 +1,13 @@
 const formButton = document.getElementById('submit');
-const dateElement = document.getElementById('location');
+const headingElement = document.getElementById('heading');
 const tempElement = document.getElementById('temp');
 const feelingsElement = document.getElementById('content');
 const searchForm = document.getElementById('search-form');
 const resultsImage = document.getElementById('location-img');
+const weatherElement = document.getElementById('weather');
+let weekFromToday = new Date();
+weekFromToday = weekFromToday.setDate(weekFromToday.getDate() + 7);
+let timeFrame = '';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -14,6 +18,14 @@ let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 function formSubmit(event) {
   event.preventDefault();
   const city = document.getElementById('city').value;
+  let tripDate = document.getElementById('trip-date').value;
+  let formattedTripDate = new Date(tripDate)
+  // console.log('date ' + tripDate)
+  if(formattedTripDate  >= weekFromToday){
+    timeFrame = 'Predicted'
+  } else {
+    timeFrame = 'Current'
+  }
   Client.getCity(city)
     // .then(res => res.json())
     .then(function(res) {
@@ -24,16 +36,20 @@ function formSubmit(event) {
       const country = cityBlob.countryCode;
       const lat = cityBlob.lat;
       const long = cityBlob.lng;
-      console.log(city);
-      console.log(lat);
-      console.log(long);
-      Client.getWeather(lat, long)
+      // console.log(city);
+      // console.log(lat);
+      // console.log(long);
+      Client.getWeather(lat, long, timeFrame, tripDate)
         .then(function(weatherRes) {
-          console.log(`res1: ${JSON.stringify(weatherRes.city_name)}`)
-          console.log(`res1: ${JSON.stringify(weatherRes.country_code)}`)
-          console.log(`res1: ${JSON.stringify(weatherRes.temp)}`)
-          console.log(`res1: ${JSON.stringify(weatherRes.weather.description)}`)
-          console.log(`count: ${JSON.stringify(weatherRes.count)}`)
+          // console.log(`res1: ${JSON.stringify(weatherRes.city_name)}`)
+          // console.log(`res1: ${JSON.stringify(weatherRes.country_code)}`)
+          // console.log(`res1: ${JSON.stringify(weatherRes.temp)}`)
+          // console.log(`res1: ${JSON.stringify(weatherRes.weather.description)}`)
+          // console.log(`res1: ${JSON.stringify(weatherRes.weather.icon)}`)
+          // console.log(`count: ${JSON.stringify(weatherRes.count)}`)
+          const temp = weatherRes.temp;
+          const weatherDes = weatherRes.weather.description;
+          const weatherIcon = weatherRes.weather.icon;
           console.log(`res2: ${res}`)
           Client.getImage(city)
             .then(function(imageRes) {
@@ -43,7 +59,11 @@ function formSubmit(event) {
                 city: city,
                 state: state,
                 country: country,
-                image: img
+                image: img,
+                temp: temp,
+                description: weatherDes,
+                icon: weatherIcon,
+                timeFrame: timeFrame
               })
               .then(function() {
                 updateUI('all')
@@ -76,14 +96,20 @@ const updateUI = async (url) => {
   const res = await fetch(url)
   try {
     const data = await res.json();
-    const resDate = data.data.city;
-    const resTemp = data.data.state;
-    const resFeelings = data.data.country;
+    const resCity = data.data.city;
+    const resState = data.data.state;
+    const resCountry = data.data.country;
     const resImg = data.data.image;
-    console.log('update ui' + resImg);
-    dateElement.innerHTML = `Date: ${resDate}`;
+    const resDescription = data.data.description;
+    const resTemp = data.data.temp;
+    const resIcon = data.data.icon;
+    const resTimeFrame = data.data.timeFrame;
+    headingElement.innerHTML = `${resTimeFrame} weather for ${resCity}, ${resState}, ${resCountry}`;
     // tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
-    resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
+    tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
+  // resultsImage.innerHTML = ` <img src=${MyImage} alt="torchlight in the sky" />`
+   resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
+    weatherElement.innerHTML = `${resDescription} ${resIcon}`
   } catch (error) {
     console.log("error", error);
   }
