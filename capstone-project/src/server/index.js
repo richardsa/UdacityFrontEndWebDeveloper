@@ -1,40 +1,122 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-var path = require('path')
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+// Setup empty JS object to act as endpoint for all routes
+projectData = {};
 
-const app = express()
+// Require Express to run server and routes
+const express = require('express');
 
+// Start up an instance of app
+const app = express();
+/* Middleware*/
+const bodyParser = require('body-parser')
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
+
+// Cors for cross origin allowance
+const cors = require('cors');
+app.use(cors());
+
+// Initialize the main project folder
 app.use(express.static('dist'))
 
-console.log(__dirname)
+// Setup Server
+const port = 3000;
+/* Spin up the server*/
+const server = app.listen(port, listening);
+
+function listening() {
+  // console.log(server);
+  console.log(`running on localhost: ${port}`);
+  console.log(`geoNamesAPI = ${process.env.geoNamesAPI}`);
+  console.log(`weatherAPI = ${process.env.weatherAPI}`);
+  console.log(`pixAPI = ${process.env.pixAPI}`);
+};
 
 const axios = require('axios');
 
-const cors = require('cors');
-app.use(cors());
+const Flatted = require('flatted');
+
+// project Data get route
+app.get('/all', sendData);
 
 app.get('/', function (req, res) {
     res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
-const baseAPI = `https://api.meaningcloud.com/sentiment-2.1&key=${process.env.API_KEY}&lang=en&url=`
+// return project data
+function sendData (request, response) {
+  response.send(projectData);
+};
 
+// project data post route
+app.post('/add', addData);
 
-var port = 8080;
+// add response to project data object
+function addData (req,res){
+  projectData.data = req.body;
+  res.send(projectData.data)
+};
 
-app.listen(port, function () {
-    console.log(`Example app listening on port ${port}!`)
-})
-
-app.get('/test/:url*', function (req, res) {
-  let url = req.params.url
-  let reqUrl = baseAPI + url;
+/* Geonames */
+/* geonames documentation http://www.geonames.org/export/web-services.html */
+const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.geoNamesAPI}&q=`
+app.get('/cities/:city*', function (req, res) {
+  let city = req.params.city
+  let reqUrl = baseGeoAPI + city;
+  console.log(reqUrl)
   axios.get(reqUrl)
   .then(function (response) {
     console.log(response.data)
-  res.send(response.data);
+    res.send(response.data);
+  });
+})
+
+
+/* weather bit */
+/* weather bit documentation https://www.weatherbit.io/api */
+const baseWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}&units=I`
+app.get('/weather/', function (req, res) {
+  let lat = req.query.lat;
+  let lon = req.query.lon;
+  let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+    res.send(response.data);
+  });
+})
+
+const avgWeatherAPI = `https://api.weatherbit.io/v2.0/current?key=${process.env.weatherAPI}&units=I`
+app.get('/avg-weather/', function (req, res) {
+  let lat = req.query.lat;
+  let lon = req.query.lon;
+  let startDate = req.query.start_day;
+  let endDate = req.query.end_day;
+  let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}&start_day=${startDate}&end_day=${endDate}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+      console.log(response.data)
+    res.send(response.data);
+  });
+})
+
+/* pixabay */
+/* pixabay documentation  https://pixabay.com/api/docs/ */
+const basePixURL = `https://pixabay.com/api/?image_type=photo&pretty=true&key=${process.env.pixAPI}`
+app.get('/images/:searchQuery', function (req, res) {
+  let query = req.params.searchQuery;
+  let reqUrl = `${basePixURL}&q=${query}`;
+  console.log(reqUrl);
+  axios.get(reqUrl)
+  .then(function (response) {
+    // console.log(response)
+    console.log(response.data.hits[0]);
+    res.send(response.data.hits[0]);
   });
 })

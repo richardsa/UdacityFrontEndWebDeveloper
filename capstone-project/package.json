@@ -1,5 +1,5 @@
 {
-  "name": "example-project",
+  "name": "richie-udacity-captsone-project",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "flatted": "^3.2.2",
     "jest": "^27.2.5",
     "webpack": "^5.56.1",
     "webpack-cli": "^4.8.0",

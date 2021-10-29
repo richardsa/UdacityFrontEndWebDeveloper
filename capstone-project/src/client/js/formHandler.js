@@ -1,70 +1,116 @@
-const formBtn = document.getElementById('submitBtn');
-const searchForm = document.getElementById('searchForm');
+const formButton = document.getElementById('submit');
+const headingElement = document.getElementById('heading');
+const tempElement = document.getElementById('temp');
+const feelingsElement = document.getElementById('content');
+const searchForm = document.getElementById('search-form');
+const resultsImage = document.getElementById('location-img');
+const weatherElement = document.getElementById('weather');
+let weekFromToday = new Date();
+weekFromToday = weekFromToday.setDate(weekFromToday.getDate() + 7);
+let timeFrame = '';
 
-function handleSubmit(event) {
-  event.preventDefault()
-  // check what text was put into the form field
-  let formText = document.getElementById('url').value
-  console.log("::: Form Submitted :::")
+// Create a new date instance dynamically with JS
+let d = new Date();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 
-  if (Client.urlValidator(formText)) {
-    // replace protocol from url - not returning results if present
-    // from https://stackoverflow.com/a/8206299
-    formText = formText.replace(/(^\w+:|^)\/\//, '');
-    let fetchURL = `http://localhost:8080/test/${formText}`;
-    fetch(fetchURL)
-      .then(res => res.json())
-      .then(function(res) {
-        displayResults(res);
-
-      })
+// handle form submit
+function formSubmit(event) {
+  event.preventDefault();
+  const city = document.getElementById('city').value;
+  let tripDate = document.getElementById('trip-date').value;
+  let formattedTripDate = new Date(tripDate)
+  // console.log('date ' + tripDate)
+  if (formattedTripDate >= weekFromToday) {
+    timeFrame = 'Predicted'
   } else {
-    displayErrorMessage('Invalid URL. Please try again.')
+    timeFrame = 'Current'
+  }
+  Client.getCity(city)
+    // .then(res => res.json())
+    .then(function(res) {
+      console.log('data12' + JSON.stringify(res));
+      const cityBlob = res.geonames[0]
+      const city = cityBlob.name;
+      const state = cityBlob.adminCode1;
+      const country = cityBlob.countryCode;
+      const lat = cityBlob.lat;
+      const long = cityBlob.lng;
+      Client.getWeather(lat, long, timeFrame, tripDate)
+        .then(function(weatherRes) {
+          const temp = weatherRes.temp;
+          const weatherDes = weatherRes.weather.description;
+          const weatherIcon = weatherRes.weather.icon;
+          console.log(`res2: ${res}`)
+          Client.getImage(city)
+            .then(function(imageRes) {
+              // puppy placeholder in case no image is returned
+              let img = 'https://placedog.net/500';
+              if (imageRes.webformatURL) {
+                img = imageRes.webformatURL;
+              }
+              postData('/add', {
+                  city: city,
+                  state: state,
+                  country: country,
+                  image: img,
+                  temp: temp,
+                  description: weatherDes,
+                  icon: weatherIcon,
+                  timeFrame: timeFrame
+                })
+                .then(function() {
+                  updateUI('all')
+                })
+            })
+        })
+    })
+}
+
+// send post request to app api
+const postData = async (url, data) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  try {
+    const newData = await response.json();
+    return newData;
+  } catch (error) {
+    console.log("Something went wrong!", error);
   }
 
-
 }
 
-function displayResults(res) {
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = "";
-  resultsDiv.classList.remove('error');
-
-  if(res.status.code !=0){
-    displayErrorMessage(`${res.status.msg}: Please try again.`)
-    return;
+const updateUI = async (url) => {
+  const res = await fetch(url)
+  try {
+    const data = await res.json();
+    const resCity = data.data.city;
+    const resState = data.data.state;
+    const resCountry = data.data.country;
+    const resImg = data.data.image;
+    const resDescription = data.data.description;
+    const resTemp = data.data.temp;
+    const resIcon = data.data.icon;
+    const resTimeFrame = data.data.timeFrame;
+    headingElement.innerHTML = `${resTimeFrame} Weather for ${resCity}, ${resState}, ${resCountry}`;
+    tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
+    resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
+    weatherElement.innerHTML = resDescription
+  } catch (error) {
+    console.log("error", error);
   }
-  const elements = [
-    ['Model', res.model],
-    ['Agreement', res.agreement],
-    ['Subjectivity', res.subjectivity],
-    ['Score', res.score_tag],
-    ['Confidence', res.confidence],
-    ['Irony', res.irony]
-  ];
-
-
-  elements.forEach(element => {
-    const newElement = document.createElement('span');
-    newElement.classList.add('results-item');
-    newElement.textContent = `${element[0]}: ${element[1].toLowerCase()}`;
-    resultsDiv.appendChild(newElement);
-  })
 }
 
-function displayErrorMessage(message){
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.classList.add('error');
-  resultsDiv.textContent = message;
-}
+// bind listener to form button
+searchForm.addEventListener('submit', formSubmit);
 
-function submitEventListener(){
-  const searchForm = document.getElementById('searchForm');
-  console.log('clicked')
-  searchForm.addEventListener('submit', handleSubmit);
-}
 
 export {
-  submitEventListener
+  formSubmit
 }

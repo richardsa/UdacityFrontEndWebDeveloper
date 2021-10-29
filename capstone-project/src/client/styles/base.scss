@@ -1,43 +1,64 @@
 body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fff;
+  margin:0;
+}
+
+#app {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 1rem;
-}
-
-main {
+  justify-content: flex-start;
+  color: #495057;
+  min-height:calc(100vh - 150px);
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+  max-width: 1280px;
+  margin: auto;
   padding:25px;
-  flex: 2;
 }
 
-section {
-  max-width: 800px;
-  margin: 75px auto;
+.holder {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  align-self:flex-start;
 }
+
+.entry {
+  background: rgba(59, 74, 107, .4);
+}
+
+#entryHolder {padding:25px 0;}
+
+
+.headline {
+  margin:25px 0;
+}
+
+.title { padding:25px 0;}
+
+/*  Basic Styling To Override Default For Basic HTML Elements */
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.5;
+  font-size: 36px;
 }
 
-strong {
-  font-weight: bolder;
+#entryHolder {
+  display:flex;
 }
 
-.error {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  text-align: center;
-  padding: 35px 0;
-  margin: 15px 0;
-  font-weight: bolder;
+#entryHolder > div {
+  padding:25px;
+  flex-basis: 50%;
 }
 
-.results-item {
-  display:block;
-  padding:15px 0
+img.results-img {
+  max-width:100%;
 }
+
+/* media queries */
+@media (max-width: 769px) {
+  #entryHolder { flex-direction:column;}
+}
+

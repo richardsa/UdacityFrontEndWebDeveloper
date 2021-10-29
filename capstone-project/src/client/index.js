@@ -1,15 +1,18 @@
-import { submitEventListener } from './js/formHandler'
-import { urlValidator } from './js/urlChecker'
+import { formSubmit } from './js/formHandler'
+import { getCity } from './js/geoNames'
+import { getWeather } from './js/weatherBit'
+import { getImage} from './js/pixaBay'
 
-import './styles/resets.scss'
 import './styles/base.scss'
 import './styles/form.scss'
-import './styles/footer.scss'
 import './styles/header.scss'
+import './styles/footer.scss'
 
-submitEventListener();
+
 
 export {
-    submitEventListener,
-    urlValidator
+  formSubmit,
+  getCity,
+  getWeather,
+  getImage
 }

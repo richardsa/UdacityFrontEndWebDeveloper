@@ -1,17 +1,16 @@
 .header {
-    background-color:#0096FF;
-
+  grid-area:hd;
+  background-color:#0096FF;
 }
 
 .header .nav {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-between;
 }
 
 
 .header ul {
   display: inline-block;
-  align-self:center;
 }
 
 .header li {
@@ -30,16 +29,10 @@
 a.logo {display:flex;}
 .logo img{
   max-height:50px;
+  padding:0 15px;
 }
 
-@media screen and (max-width:700px) {
-  .logo img{
-    max-width: 370px;
-  }
-  .nav-menu {font-size:12px; padding:0;}
-}
-
-@media screen and (max-width:500px) {
+@media only screen and (max-width:700px) {
   .logo img{
     align-self:center;
     width: 160px;
