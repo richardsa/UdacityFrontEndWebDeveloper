@@ -14,14 +14,14 @@ else {
 
 /* modified from https://stackoverflow.com/questions/16010827/html5-localstorage-checking-if-a-key-exists */
 function getTrip(){
-  console.log('running')
   if (localStorage.getItem("trip-info") !== null) {
     console.log(localStorage["trip-info"]);
     tripDetailContainer.outerHTML = localStorage["trip-info"]
+  } else {
+    return false;
   }
 }
-// 
-// window.addEventListener('load', getTrip());
+
 
 export {
   setTrip,
