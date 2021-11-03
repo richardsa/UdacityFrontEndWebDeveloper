@@ -19,7 +19,7 @@
   </header>
   <div id="app">
     <div class="holder headline">
-      Richie's Travel App
+      <h1>Richie's Travel App</h1>
     </div>
     <form id="search-form">
       <div class="form-group">
@@ -35,6 +35,9 @@
     </form>
 
     <div class="holder results">
+      <div id="error-message">
+        <p>No results found. Please try again.</p>
+      </div>
       <div id="entryHolder">
         <div class="weather-container">
           <div id="heading"></div>
@@ -46,7 +49,7 @@
     </div>
   </div>
   <footer>
-        <p>&copy 2021 Richie's Travel App </p>
+        <p><a href="https://github.com/richardsa/UdacityFrontEndWebDeveloper/tree/main/capstone-project">&copy 2021 Richie's Travel App</a></p>
   </footer>
   <script>
     // Check that service workers are supported

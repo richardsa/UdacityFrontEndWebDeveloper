@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require('express');
@@ -28,6 +28,7 @@ app.use(express.static('dist'))
 const port = 3000;
 /* Spin up the server*/
 const server = app.listen(port, listening);
+module.exports = {app}
 
 function listening() {
   // console.log(server);
@@ -120,3 +121,4 @@ app.get('/images/:searchQuery', function (req, res) {
     res.send(response.data.hits[0]);
   });
 })
+

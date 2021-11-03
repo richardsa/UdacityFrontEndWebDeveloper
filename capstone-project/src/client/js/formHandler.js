@@ -1,35 +1,37 @@
-const formButton = document.getElementById('submit');
 const headingElement = document.getElementById('heading');
 const tempElement = document.getElementById('temp');
-const feelingsElement = document.getElementById('content');
 const searchForm = document.getElementById('search-form');
 const resultsImage = document.getElementById('location-img');
 const weatherElement = document.getElementById('weather');
+const errorMessage = document.getElementById('error-message');
 let weekFromToday = new Date();
 weekFromToday = weekFromToday.setDate(weekFromToday.getDate() + 7);
 let timeFrame = '';
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
+
 
 
 // handle form submit
 function formSubmit(event) {
   event.preventDefault();
+  // hide error message if present
+  errorMessage.style.display = 'none';
   const city = document.getElementById('city').value;
   let tripDate = document.getElementById('trip-date').value;
   let formattedTripDate = new Date(tripDate)
-  // console.log('date ' + tripDate)
   if (formattedTripDate >= weekFromToday) {
     timeFrame = 'Predicted'
   } else {
     timeFrame = 'Current'
   }
   Client.getCity(city)
-    // .then(res => res.json())
     .then(function(res) {
-      console.log('data12' + JSON.stringify(res));
+      /* grab necessary elements from geonames response */
+      const resultsCount = res.totalResultsCount;
+      if (resultsCount == 0) {
+        errorMessage.style.display = 'block';
+        return;
+      }
       const cityBlob = res.geonames[0]
       const city = cityBlob.name;
       const state = cityBlob.adminCode1;
@@ -38,10 +40,10 @@ function formSubmit(event) {
       const long = cityBlob.lng;
       Client.getWeather(lat, long, timeFrame, tripDate)
         .then(function(weatherRes) {
+          /* grab necessary elements from weather bit response */
           const temp = weatherRes.temp;
           const weatherDes = weatherRes.weather.description;
           const weatherIcon = weatherRes.weather.icon;
-          console.log(`res2: ${res}`)
           Client.getImage(city)
             .then(function(imageRes) {
               // puppy placeholder in case no image is returned
@@ -90,6 +92,7 @@ const updateUI = async (url) => {
   const res = await fetch(url)
   try {
     const data = await res.json();
+    /* grab response from project api to populate UI */
     const resCity = data.data.city;
     const resState = data.data.state;
     const resCountry = data.data.country;
@@ -102,13 +105,13 @@ const updateUI = async (url) => {
     tempElement.innerHTML = `Temperature: ${resTemp} &#8457;`;
     resultsImage.innerHTML = `<img src="${resImg}" class="results-img" />`
     weatherElement.innerHTML = resDescription
+    Client.setTrip();
   } catch (error) {
     console.log("error", error);
   }
 }
 
-// bind listener to form button
-searchForm.addEventListener('submit', formSubmit);
+
 
 
 export {
