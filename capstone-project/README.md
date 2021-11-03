@@ -23,7 +23,7 @@ Then change your directory to this project:
 
 cd UdacityFrontEndWebDeveloper/capstone-project
 
-Create a .env file in the root directory of this project (UdacityFrontEndWebDeveloper/capstone-project) and add your API keys for [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/), [Geonames](http://www.geonames.org/export/web-services.html) and  as follows:
+Create a .env file in the root directory of this project (UdacityFrontEndWebDeveloper/capstone-project) and add your API keys for [Weatherbit](https://www.weatherbit.io/account/create), [Pixabay](https://pixabay.com/api/docs/), and [Geonames](http://www.geonames.org/export/web-services.html) as follows:
 
 - geoNamesAPI=YOUR_APIKEY
 - weatherAPI=YOUR_APIKEY
