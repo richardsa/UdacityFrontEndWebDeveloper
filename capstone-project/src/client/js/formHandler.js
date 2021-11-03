@@ -10,7 +10,6 @@ let timeFrame = '';
 
 
 
-
 // handle form submit
 function formSubmit(event) {
   event.preventDefault();
@@ -111,8 +110,7 @@ const updateUI = async (url) => {
   }
 }
 
-
-
+searchForm.addEventListener('submit', formSubmit);
 
 export {
   formSubmit

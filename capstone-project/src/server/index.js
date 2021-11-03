@@ -31,7 +31,6 @@ const server = app.listen(port, listening);
 module.exports = {app}
 
 function listening() {
-  // console.log(server);
   console.log(`running on localhost: ${port}`);
   console.log(`geoNamesAPI = ${process.env.geoNamesAPI}`);
   console.log(`weatherAPI = ${process.env.weatherAPI}`);
@@ -69,10 +68,8 @@ const baseGeoAPI = `http://api.geonames.org/searchJSON?username=${process.env.ge
 app.get('/cities/:city*', function (req, res) {
   let city = req.params.city
   let reqUrl = baseGeoAPI + city;
-  console.log(reqUrl)
   axios.get(reqUrl)
   .then(function (response) {
-    console.log(response.data)
     res.send(response.data);
   });
 })
@@ -85,7 +82,6 @@ app.get('/weather/', function (req, res) {
   let lat = req.query.lat;
   let lon = req.query.lon;
   let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}`;
-  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
     res.send(response.data);
@@ -99,10 +95,8 @@ app.get('/avg-weather/', function (req, res) {
   let startDate = req.query.start_day;
   let endDate = req.query.end_day;
   let reqUrl = `${baseWeatherAPI}&lat=${lat}&lon=${lon}&start_day=${startDate}&end_day=${endDate}`;
-  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
-      console.log(response.data)
     res.send(response.data);
   });
 })
@@ -113,12 +107,13 @@ const basePixURL = `https://pixabay.com/api/?image_type=photo&pretty=true&key=${
 app.get('/images/:searchQuery', function (req, res) {
   let query = req.params.searchQuery;
   let reqUrl = `${basePixURL}&q=${query}`;
-  console.log(reqUrl);
   axios.get(reqUrl)
   .then(function (response) {
-    // console.log(response)
-    console.log(response.data.hits[0]);
     res.send(response.data.hits[0]);
-  });
+  })
+  // catch statement to handle pixabay api not working at the moment
+  .catch(error => res.send({'error': 'error'}))
 })
+
+
 

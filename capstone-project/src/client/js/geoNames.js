@@ -3,7 +3,6 @@ const getCity = async (city) => {
   const res = await fetch(fetchURL)
   try {
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log("error", error);

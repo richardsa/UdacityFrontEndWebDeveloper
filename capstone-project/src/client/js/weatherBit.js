@@ -4,10 +4,7 @@ const getWeather = async (lat, long, timeFrame, tripDate) => {
   if (timeFrame == 'Predicted' ){
     let startDate = new Date(tripDate);
     let endDate = new Date(tripDate);
-    console.log('end date' + endDate);
     endDate = endDate.setUTCDate(endDate.getUTCDate() + 1);
-    console.log('end date' + endDate);
-    console.log('start date ' + startDate);
     startDate = formatDate(startDate);
     endDate = formatDate(endDate);
 
@@ -18,7 +15,6 @@ const getWeather = async (lat, long, timeFrame, tripDate) => {
   const res = await fetch(fetchURL)
   try {
     const data = await res.json();
-    console.log(data.data[0])
     return data.data[0];
   } catch (error) {
     console.log("error", error);
@@ -26,7 +22,6 @@ const getWeather = async (lat, long, timeFrame, tripDate) => {
 }
 
 function formatDate(date) {
-  console.log('date formatted' + date);
   date = new Date(date)
   date = date.toISOString().split('T')[0];
   date = date.slice(5)
